@@ -17,7 +17,10 @@ const Calculator = () => {
   const handleOnClickNumber = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
-    setCalc({ ...calc, num: value });
+    console.log(typeof value);
+    if (!calc.operation) {
+      setCalc({ ...calc, num: calc.num === 0 ? value : calc.num + value });
+    }
   };
 
   const handleOnClickOperator = (e) => {
