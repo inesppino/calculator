@@ -14,8 +14,15 @@ const Calculator = () => {
     res: 0,
   });
 
-  const onClick = (e) => {
-    console.log("clicked", e);
+  const handleOnClickNumber = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    setCalc({ ...calc, num: value });
+  };
+
+  const handleOnClickOperator = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
   };
 
   return (
@@ -28,7 +35,7 @@ const Calculator = () => {
           {CALCULATOR_OPERATORS[0].map((operator) => (
             <button
               className="calculator-button-num"
-              onClick={() => onClick(operator)}
+              onClick={handleOnClickOperator}
               key={operator}
             >
               {operator}
@@ -40,7 +47,7 @@ const Calculator = () => {
           {CALCULATOR_OPERATORS[1].map((operator) => (
             <button
               className="calculator-button-num"
-              onClick={() => onClick(operator)}
+              onClick={handleOnClickOperator}
               key={operator}
             >
               {operator}
@@ -52,13 +59,13 @@ const Calculator = () => {
           {CALCULATOR_NUMBERS.map((num) => (
             <button
               className="calculator-button-num"
-              onClick={() => onClick(num)}
+              onClick={handleOnClickNumber}
               key={num}
             >
               {num}
             </button>
           ))}
-          <button onClick={() => onClick(".")}>.</button>
+          <button onClick={handleOnClickNumber}>.</button>
         </div>
       </div>
     </main>
