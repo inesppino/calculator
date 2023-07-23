@@ -28,17 +28,48 @@ describe("Clicking buttons", () => {
     console.log(number);
     expect(calculatorScreen.innerHTML).toBe(number);
   });
+
   it("When various number are clicked without an operator, the full number is displayed", () => {
     const firstNumber = "3";
     const secondNumber = "4";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
-    const firstButton = screen.getByText(firstNumber);
-    const secondButton = screen.getByText(secondNumber);
-    fireEvent.click(firstButton);
-    fireEvent.click(secondButton);
+    const firstNumButton = screen.getByText(firstNumber);
+    const secondNumButton = screen.getByText(secondNumber);
+    fireEvent.click(firstNumButton);
+    fireEvent.click(secondNumButton);
 
     expect(calculatorScreen.innerHTML).toBe(firstNumber + secondNumber);
+  });
+
+  it("When an operator is clicked, the current number should be displayed", () => {
+    const operator = "+";
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+    const button = screen.getByText(operator);
+    fireEvent.click(button);
+
+    expect(calculatorScreen.innerHTML).toBe("0");
+  });
+
+  it("When adding various numbers, the current number should be displayed", () => {
+    const operator = "+";
+    const firstNumber = "3";
+    const secondNumber = "4";
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(firstNumber);
+    const secondNumButton = screen.getByText(secondNumber);
+    const addButton = screen.getByText(operator);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(secondNumButton);
+
+    expect(calculatorScreen.innerHTML).toBe(secondNumber);
   });
 });

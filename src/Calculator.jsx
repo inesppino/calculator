@@ -14,18 +14,28 @@ const Calculator = () => {
     res: 0,
   });
 
+  const getResultFromOperation = (a, b) => {
+    return a + b;
+  };
+
   const handleOnClickNumber = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
-    console.log(typeof value);
     if (!calc.operation) {
       setCalc({ ...calc, num: calc.num === 0 ? value : calc.num + value });
+    } else {
+      setCalc({
+        ...calc,
+        num: value,
+        res: getResultFromOperation(calc.num, value),
+      });
     }
   };
 
   const handleOnClickOperator = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
+    setCalc({ ...calc, operation: value });
   };
 
   return (
