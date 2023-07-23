@@ -15,7 +15,7 @@ const Calculator = () => {
   });
 
   const getResultFromOperation = (a, b) => {
-    return a + b;
+    return Number(a) + Number(b);
   };
 
   const handleOnClickNumber = (e) => {
@@ -35,7 +35,15 @@ const Calculator = () => {
   const handleOnClickOperator = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
-    setCalc({ ...calc, operation: value });
+    if (value === "=") {
+      setCalc({
+        operation: "",
+        num: calc.res,
+        res: 0,
+      });
+    } else {
+      setCalc({ ...calc, operation: value });
+    }
   };
 
   return (

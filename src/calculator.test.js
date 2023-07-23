@@ -72,4 +72,27 @@ describe("Clicking buttons", () => {
 
     expect(calculatorScreen.innerHTML).toBe(secondNumber);
   });
+
+  it("When adding various numbers and clicking equal button, it should return the result", () => {
+    const operator = "+";
+    const firstNumber = "3";
+    const secondNumber = "4";
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(firstNumber);
+    const secondNumButton = screen.getByText(secondNumber);
+    const addButton = screen.getByText(operator);
+    const equalButton = screen.getByText("=");
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(
+      `${Number(firstNumber) + Number(secondNumber)}`
+    );
+  });
 });
