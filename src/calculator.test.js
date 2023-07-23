@@ -1,6 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Calculator from "./Calculator";
 
+const ADD_OPERATOR = "+";
+const SUBSTRACT_OPERATOR = "-";
+const FIRST_NUMBER = "3";
+const SECOND_NUMBER = "4";
+
 describe("Calculator", () => {
   it("renders", () => {
     render(<Calculator />);
@@ -19,71 +24,60 @@ describe("Initial value", () => {
 
 describe("Clicking operator and number buttons", () => {
   it("When a number is clicked, it's been displayed", () => {
-    const number = "3";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
-    const button = screen.getByText(number);
+    const button = screen.getByText(FIRST_NUMBER);
     fireEvent.click(button);
-    console.log(number);
-    expect(calculatorScreen.innerHTML).toBe(number);
+    expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER);
   });
 
   it("When various number are clicked without an operator, the full number is displayed", () => {
-    const firstNumber = "3";
-    const secondNumber = "4";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
-    const firstNumButton = screen.getByText(firstNumber);
-    const secondNumButton = screen.getByText(secondNumber);
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
     fireEvent.click(firstNumButton);
     fireEvent.click(secondNumButton);
 
-    expect(calculatorScreen.innerHTML).toBe(firstNumber + secondNumber);
+    expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER + SECOND_NUMBER);
   });
 
   it("When an operator is clicked, the current number should be displayed", () => {
-    const operator = "+";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
-    const button = screen.getByText(operator);
+    const button = screen.getByText(ADD_OPERATOR);
     fireEvent.click(button);
 
     expect(calculatorScreen.innerHTML).toBe("0");
   });
 
   it("When adding various numbers, the current number should be displayed", () => {
-    const operator = "+";
-    const firstNumber = "3";
-    const secondNumber = "4";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
 
-    const firstNumButton = screen.getByText(firstNumber);
-    const secondNumButton = screen.getByText(secondNumber);
-    const addButton = screen.getByText(operator);
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
 
     fireEvent.click(firstNumButton);
     fireEvent.click(addButton);
     fireEvent.click(secondNumButton);
 
-    expect(calculatorScreen.innerHTML).toBe(secondNumber);
+    expect(calculatorScreen.innerHTML).toBe(SECOND_NUMBER);
   });
 
   it("When adding various numbers and clicking equal button, it should return the result", () => {
-    const operator = "+";
-    const firstNumber = "3";
-    const secondNumber = "4";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
 
-    const firstNumButton = screen.getByText(firstNumber);
-    const secondNumButton = screen.getByText(secondNumber);
-    const addButton = screen.getByText(operator);
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
     const equalButton = screen.getByText("=");
 
     fireEvent.click(firstNumButton);
@@ -92,22 +86,18 @@ describe("Clicking operator and number buttons", () => {
     fireEvent.click(equalButton);
 
     expect(calculatorScreen.innerHTML).toBe(
-      `${Number(firstNumber) + Number(secondNumber)}`
+      `${Number(FIRST_NUMBER) + Number(SECOND_NUMBER)}`
     );
   });
   it("When adding and substracting various numbers and clicking equal button, it should return the result", () => {
-    const addOperator = "+";
-    const substractOperator = "-";
-    const firstNumber = "3";
-    const secondNumber = "4";
     const calculator = render(<Calculator />);
     const calculatorScreen =
       calculator.container.querySelector("#calculator-screen");
 
-    const firstNumButton = screen.getByText(firstNumber);
-    const secondNumButton = screen.getByText(secondNumber);
-    const addButton = screen.getByText(addOperator);
-    const substractButton = screen.getByText(substractOperator);
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
+    const substractButton = screen.getByText(SUBSTRACT_OPERATOR);
     const equalButton = screen.getByText("=");
 
     fireEvent.click(firstNumButton);
@@ -119,6 +109,6 @@ describe("Clicking operator and number buttons", () => {
 
     fireEvent.click(equalButton);
 
-    expect(calculatorScreen.innerHTML).toBe(firstNumber);
+    expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER);
   });
 });
