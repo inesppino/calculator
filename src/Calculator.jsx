@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Calculator.css";
 
 const CALCULATOR_NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
@@ -7,6 +8,12 @@ const CALCULATOR_OPERATORS = [
 ];
 
 const Calculator = () => {
+  const [calc, setCalc] = useState({
+    operation: "",
+    num: 0,
+    res: 0,
+  });
+
   const onClick = (e) => {
     console.log("clicked", e);
   };
@@ -14,7 +21,9 @@ const Calculator = () => {
   return (
     <main>
       <div className="calculator-container">
-        <div className="calculator-screen">0</div>
+        <div className="calculator-screen" id="calculator-screen">
+          {calc.num}
+        </div>
         <div className="calculator-upper-buttons">
           {CALCULATOR_OPERATORS[0].map((operator) => (
             <button
