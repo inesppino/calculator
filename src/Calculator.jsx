@@ -7,6 +7,11 @@ const CALCULATOR_OPERATORS = [
   ["x", "-", "+", "="],
 ];
 
+const OPERATIONS = {
+  "+": (a, b) => a + b,
+  "-": (a, b) => a - b,
+};
+
 const Calculator = () => {
   const [calc, setCalc] = useState({
     operation: "",
@@ -15,19 +20,25 @@ const Calculator = () => {
   });
 
   const getResultFromOperation = (a, b) => {
-    return Number(a) + Number(b);
+    return OPERATIONS[calc.operation](Number(a), Number(b));
   };
 
   const handleOnClickNumber = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
     if (!calc.operation) {
-      setCalc({ ...calc, num: calc.num === 0 ? value : calc.num + value });
+      const number = calc.num === 0 ? value : calc.num + value;
+      setCalc({
+        ...calc,
+        num: number,
+        res: number,
+      });
     } else {
+      const rest = getResultFromOperation(calc.res, value);
       setCalc({
         ...calc,
         num: value,
-        res: getResultFromOperation(calc.num, value),
+        res: rest,
       });
     }
   };

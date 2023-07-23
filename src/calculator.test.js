@@ -17,7 +17,7 @@ describe("Initial value", () => {
   });
 });
 
-describe("Clicking buttons", () => {
+describe("Clicking operator and number buttons", () => {
   it("When a number is clicked, it's been displayed", () => {
     const number = "3";
     const calculator = render(<Calculator />);
@@ -94,5 +94,31 @@ describe("Clicking buttons", () => {
     expect(calculatorScreen.innerHTML).toBe(
       `${Number(firstNumber) + Number(secondNumber)}`
     );
+  });
+  it("When adding and substracting various numbers and clicking equal button, it should return the result", () => {
+    const addOperator = "+";
+    const substractOperator = "-";
+    const firstNumber = "3";
+    const secondNumber = "4";
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(firstNumber);
+    const secondNumButton = screen.getByText(secondNumber);
+    const addButton = screen.getByText(addOperator);
+    const substractButton = screen.getByText(substractOperator);
+    const equalButton = screen.getByText("=");
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(secondNumButton);
+
+    fireEvent.click(substractButton);
+    fireEvent.click(secondNumButton);
+
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(firstNumber);
   });
 });
