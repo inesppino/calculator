@@ -1,0 +1,80 @@
+.calculator-container {
+  background-color: black;
+  border-radius: 0.5rem;
+  width: 350px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 70px;
+  grid-template-areas:
+    "screen screen"
+    "upper-buttons lateral-buttons"
+    "main-buttons lateral-buttons"
+    "main-buttons lateral-buttons";
+}
+
+.calculator-screen {
+  grid-area: screen;
+  border: 1px solid #b094e2;
+  background-color: #b094e2;
+  margin-bottom: 16px;
+  padding: 1.5rem;
+  font-size: 2rem;
+  text-align: right;
+  border-radius: 0.5rem;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.calculator-upper-buttons {
+  grid-area: upper-buttons;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.calculator-lateral-buttons {
+  grid-area: lateral-buttons;
+  display: flex;
+  flex-direction: column;
+}
+
+.calculator-lateral-buttons button,
+.calculator-upper-buttons button {
+  background-color: buttonface;
+}
+.calculator-main-buttons {
+  grid-area: main-buttons;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.equal-button {
+  flex-grow: 1;
+}
+
+.zero-button {
+  grid-column: span 2;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: inherit;
+  color: inherit;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 1.5rem 0.5rem;
+  margin: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+  background-color: #b094e2;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
