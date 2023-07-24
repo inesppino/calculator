@@ -3,6 +3,8 @@ import Calculator from "./Calculator";
 
 const ADD_OPERATOR = "+";
 const SUBSTRACT_OPERATOR = "-";
+const MULTIPLY_OPERATOR = "x";
+const EQUAL_OPERATOR = "=";
 const FIRST_NUMBER = "3";
 const SECOND_NUMBER = "4";
 
@@ -78,7 +80,7 @@ describe("Clicking operator and number buttons", () => {
     const firstNumButton = screen.getByText(FIRST_NUMBER);
     const secondNumButton = screen.getByText(SECOND_NUMBER);
     const addButton = screen.getByText(ADD_OPERATOR);
-    const equalButton = screen.getByText("=");
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
 
     fireEvent.click(firstNumButton);
     fireEvent.click(addButton);
@@ -98,7 +100,7 @@ describe("Clicking operator and number buttons", () => {
     const secondNumButton = screen.getByText(SECOND_NUMBER);
     const addButton = screen.getByText(ADD_OPERATOR);
     const substractButton = screen.getByText(SUBSTRACT_OPERATOR);
-    const equalButton = screen.getByText("=");
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
 
     fireEvent.click(firstNumButton);
     fireEvent.click(addButton);
@@ -110,5 +112,25 @@ describe("Clicking operator and number buttons", () => {
     fireEvent.click(equalButton);
 
     expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER);
+  });
+  it("When multiplying various numbers and clicking equal button, it should return the result", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const multiplyButton = screen.getByText(MULTIPLY_OPERATOR);
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(multiplyButton);
+    fireEvent.click(secondNumButton);
+
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(
+      Number(FIRST_NUMBER) * Number(SECOND_NUMBER)
+    );
   });
 });
