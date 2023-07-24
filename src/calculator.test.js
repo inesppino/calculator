@@ -4,6 +4,7 @@ import Calculator from "./Calculator";
 const ADD_OPERATOR = "+";
 const SUBSTRACT_OPERATOR = "-";
 const MULTIPLY_OPERATOR = "x";
+const DIVIDE_OPERATOR = "/";
 const EQUAL_OPERATOR = "=";
 const FIRST_NUMBER = "3";
 const SECOND_NUMBER = "4";
@@ -131,6 +132,25 @@ describe("Clicking operator and number buttons", () => {
 
     expect(calculatorScreen.innerHTML).toBe(
       `${Number(FIRST_NUMBER) * Number(SECOND_NUMBER)}`
+    );
+  });
+  it("When dividing various numbers and clicking equal button, it should return the result", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const multiplyButton = screen.getByText(DIVIDE_OPERATOR);
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(multiplyButton);
+    fireEvent.click(firstNumButton);
+
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(
+      `${Number(FIRST_NUMBER) / Number(FIRST_NUMBER)}`
     );
   });
 });
