@@ -6,6 +6,7 @@ const SUBSTRACT_OPERATOR = "-";
 const MULTIPLY_OPERATOR = "x";
 const DIVIDE_OPERATOR = "/";
 const EQUAL_OPERATOR = "=";
+const DECIMAL_DOT = ".";
 const FIRST_NUMBER = "3";
 const SECOND_NUMBER = "4";
 const ZERO_NUMBER_ID = "#zero-button";
@@ -171,5 +172,31 @@ describe("Clicking operator and number buttons", () => {
     fireEvent.click(equalButton);
 
     expect(calculatorScreen.innerHTML).toBe("Err");
+  });
+  it("When adding decimals, it should return the result", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
+    const decimalButton = screen.getByText(DECIMAL_DOT);
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
+    const decimalNumber = FIRST_NUMBER + DECIMAL_DOT + SECOND_NUMBER;
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(decimalButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(firstNumButton);
+    fireEvent.click(decimalButton);
+    fireEvent.click(secondNumButton);
+
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(
+      `${Number(decimalNumber) + Number(decimalNumber)}`
+    );
   });
 });
