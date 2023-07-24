@@ -130,7 +130,7 @@ describe("Clicking operator and number buttons", () => {
     fireEvent.click(equalButton);
 
     expect(calculatorScreen.innerHTML).toBe(
-      Number(FIRST_NUMBER) * Number(SECOND_NUMBER)
+      `${Number(FIRST_NUMBER) * Number(SECOND_NUMBER)}`
     );
   });
 });
