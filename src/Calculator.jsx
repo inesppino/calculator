@@ -81,6 +81,21 @@ const Calculator = () => {
     }
   };
 
+  const handleOnClickFormat = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    if (value === "←") {
+      console.log(calc);
+      const isEmpty = String(calc.num).length === 1;
+      setCalc({
+        ...calc,
+        num: isEmpty ? 0 : calc.num.slice(0, calc.num.length - 1),
+      });
+    }
+    if (value === "C") {
+    }
+  };
+
   return (
     <main>
       <div className="calculator-container">
@@ -91,7 +106,9 @@ const Calculator = () => {
           {CALCULATOR_OPERATORS[0].map((operator) => (
             <button
               className="calculator-button-num"
-              onClick={handleOnClickOperator}
+              onClick={
+                operator === "/" ? handleOnClickOperator : handleOnClickFormat
+              }
               key={operator}
             >
               {operator}
