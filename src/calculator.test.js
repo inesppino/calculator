@@ -6,6 +6,8 @@ const SUBSTRACT_OPERATOR = "-";
 const MULTIPLY_OPERATOR = "x";
 const DIVIDE_OPERATOR = "/";
 const EQUAL_OPERATOR = "=";
+const DELETE_OPERATOR = "←";
+const RESET_OPERATOR = "C";
 const DECIMAL_DOT = ".";
 const FIRST_NUMBER = "3";
 const SECOND_NUMBER = "4";
@@ -198,5 +200,23 @@ describe("Clicking operator and number buttons", () => {
     expect(calculatorScreen.innerHTML).toBe(
       `${Number(decimalNumber) + Number(decimalNumber)}`
     );
+  });
+});
+
+describe("Clicking delete and reset buttons", () => {
+  it("When clicking delete, it deletes", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const deleteButton = screen.getByText(DELETE_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(deleteButton);
+
+    expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER);
   });
 });
