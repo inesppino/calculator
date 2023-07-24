@@ -212,11 +212,28 @@ describe("Clicking delete and reset buttons", () => {
     const firstNumButton = screen.getByText(FIRST_NUMBER);
     const secondNumButton = screen.getByText(SECOND_NUMBER);
     const deleteButton = screen.getByText(DELETE_OPERATOR);
-
     fireEvent.click(firstNumButton);
+
     fireEvent.click(secondNumButton);
     fireEvent.click(deleteButton);
 
     expect(calculatorScreen.innerHTML).toBe(FIRST_NUMBER);
+  });
+  it("When clicking reset (C), it resets", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
+    const resetButton = screen.getByText(RESET_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(resetButton);
+
+    expect(calculatorScreen.innerHTML).toBe("0");
   });
 });
