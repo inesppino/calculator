@@ -111,7 +111,6 @@ const Calculator = () => {
         <div className="calculator-upper-buttons">
           {CALCULATOR_OPERATORS[0].map((operator) => (
             <button
-              className="calculator-button-num"
               onClick={
                 operator === "/" ? handleOnClickOperator : handleOnClickFormat
               }
@@ -125,7 +124,7 @@ const Calculator = () => {
         <div className="calculator-lateral-buttons">
           {CALCULATOR_OPERATORS[1].map((operator) => (
             <button
-              className="calculator-button-num"
+              id={operator === "=" ? "equal-button" : null}
               onClick={handleOnClickOperator}
               key={operator}
             >
@@ -135,26 +134,15 @@ const Calculator = () => {
         </div>
 
         <div className="calculator-main-buttons">
-          {CALCULATOR_NUMBERS.map((num) =>
-            num === 0 ? (
-              <button
-                id="zero-button"
-                className="calculator-button-num"
-                onClick={handleOnClickNumber}
-                key={num}
-              >
-                {num}
-              </button>
-            ) : (
-              <button
-                className="calculator-button-num"
-                onClick={handleOnClickNumber}
-                key={num}
-              >
-                {num}
-              </button>
-            )
-          )}
+          {CALCULATOR_NUMBERS.map((num) => (
+            <button
+              id={num === 0 ? "zero-button" : null}
+              onClick={handleOnClickNumber}
+              key={num}
+            >
+              {num}
+            </button>
+          ))}
           <button onClick={handleOnClickDecimal}>.</button>
         </div>
       </div>

@@ -47,11 +47,11 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.equal-button {
+#equal-button {
   flex-grow: 1;
 }
 
-.zero-button {
+#zero-button {
   grid-column: span 2;
 }
 
