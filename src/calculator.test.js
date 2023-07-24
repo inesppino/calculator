@@ -96,6 +96,30 @@ describe("Clicking operator and number buttons", () => {
       `${Number(FIRST_NUMBER) + Number(SECOND_NUMBER)}`
     );
   });
+  it("When adding various two-digit numbers and clicking equal button, it should return the result", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = screen.getByText(SECOND_NUMBER);
+    const addButton = screen.getByText(ADD_OPERATOR);
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(addButton);
+    fireEvent.click(firstNumButton);
+    fireEvent.click(secondNumButton);
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe(
+      `${
+        Number(FIRST_NUMBER + SECOND_NUMBER) +
+        Number(FIRST_NUMBER + SECOND_NUMBER)
+      }`
+    );
+  });
   it("When adding and substracting various numbers and clicking equal button, it should return the result", () => {
     const calculator = render(<Calculator />);
     const calculatorScreen =
