@@ -14,13 +14,15 @@ const OPERATIONS = {
   "/": (a, b) => a / b,
 };
 
+const INITIAL_STATE = {
+  operation: "",
+  num: 0,
+  res: 0,
+  decimal: false,
+};
+
 const Calculator = () => {
-  const [calc, setCalc] = useState({
-    operation: "",
-    num: 0,
-    res: 0,
-    decimal: false,
-  });
+  const [calc, setCalc] = useState(INITIAL_STATE);
 
   const getResultFromOperation = (a, b) => {
     if (calc.operation === "/" && b === "0") {
@@ -93,6 +95,7 @@ const Calculator = () => {
       });
     }
     if (value === "C") {
+      setCalc(INITIAL_STATE);
     }
   };
 
