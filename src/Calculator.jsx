@@ -22,6 +22,11 @@ const Calculator = () => {
   });
 
   const getResultFromOperation = (a, b) => {
+    console.log(calc.operation, a, b);
+    if (calc.operation === "/" && b === "0") {
+      console.log("soy err");
+      return "Err";
+    }
     return OPERATIONS[calc.operation](Number(a), Number(b));
   };
 
@@ -38,7 +43,7 @@ const Calculator = () => {
     } else {
       const rest = getResultFromOperation(calc.res, value);
       setCalc({
-        ...calc,
+        operation: rest === "Err" ? "" : calc.operation,
         num: value,
         res: rest,
       });
@@ -90,15 +95,26 @@ const Calculator = () => {
         </div>
 
         <div className="calculator-main-buttons">
-          {CALCULATOR_NUMBERS.map((num) => (
-            <button
-              className="calculator-button-num"
-              onClick={handleOnClickNumber}
-              key={num}
-            >
-              {num}
-            </button>
-          ))}
+          {CALCULATOR_NUMBERS.map((num) =>
+            num === 0 ? (
+              <button
+                id="zero-button"
+                className="calculator-button-num"
+                onClick={handleOnClickNumber}
+                key={num}
+              >
+                {num}
+              </button>
+            ) : (
+              <button
+                className="calculator-button-num"
+                onClick={handleOnClickNumber}
+                key={num}
+              >
+                {num}
+              </button>
+            )
+          )}
           <button onClick={handleOnClickNumber}>.</button>
         </div>
       </div>
