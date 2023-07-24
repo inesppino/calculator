@@ -1,8 +1,15 @@
-# React + Vite
+# Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a basic calculator that will allow the user to add, subtract, multiply and divide.
 
-Currently, two official plugins are available:
+## MVP:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+For this first approach, the user can use tab keyboard and enter to navigate or use the mouse. Future updates will allow user to use keyboard to perform whatever operations she/he wants.
+
+## TDD:
+
+This calculator has been built through TDD.
+
+## Vite:
+
+As CRA is no longer been updated, it has been decided to use vite + react template in order to create the app. We have used css to keep the application as simple as possible.
