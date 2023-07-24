@@ -54,7 +54,11 @@ const Calculator = () => {
     } else {
       setCalc({
         ...calc,
-        num: calc.decimal ? calc.num + value : value,
+        num: calc.decimal
+          ? calc.num + value
+          : calc.num
+          ? calc.num + value
+          : value,
       });
     }
   };
@@ -67,19 +71,19 @@ const Calculator = () => {
       setCalc({
         operation: "",
         num: rest,
-        res: 0,
+        res: rest,
         decimal: false,
       });
     } else if (calc.operation) {
       const rest = getResultFromOperation(calc.res, calc.num);
       setCalc({
-        ...calc,
         operation: value,
+        num: null,
         res: rest,
         decimal: false,
       });
     } else {
-      setCalc({ ...calc, operation: value, decimal: false });
+      setCalc({ ...calc, operation: value, decimal: false, num: null });
     }
   };
 
@@ -87,7 +91,6 @@ const Calculator = () => {
     e.preventDefault();
     const value = e.target.innerHTML;
     if (value === "←") {
-      console.log(calc);
       const isEmpty = String(calc.num).length === 1;
       setCalc({
         ...calc,
@@ -103,7 +106,7 @@ const Calculator = () => {
     <main>
       <div className="calculator-container">
         <div className="calculator-screen" id="calculator-screen">
-          {calc.num}
+          {calc.num ? calc.num : calc.res}
         </div>
         <div className="calculator-upper-buttons">
           {CALCULATOR_OPERATORS[0].map((operator) => (
