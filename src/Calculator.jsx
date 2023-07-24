@@ -19,15 +19,24 @@ const Calculator = () => {
     operation: "",
     num: 0,
     res: 0,
+    decimal: false,
   });
 
   const getResultFromOperation = (a, b) => {
-    console.log(calc.operation, a, b);
     if (calc.operation === "/" && b === "0") {
-      console.log("soy err");
       return "Err";
     }
     return OPERATIONS[calc.operation](Number(a), Number(b));
+  };
+
+  const handleOnClickDecimal = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+    setCalc({
+      ...calc,
+      num: !calc.num.toString().includes(".") ? calc.num + value : calc.num,
+      decimal: true,
+    });
   };
 
   const handleOnClickNumber = (e) => {
@@ -41,11 +50,9 @@ const Calculator = () => {
         res: number,
       });
     } else {
-      const rest = getResultFromOperation(calc.res, value);
       setCalc({
-        operation: rest === "Err" ? "" : calc.operation,
-        num: value,
-        res: rest,
+        ...calc,
+        num: calc.decimal ? calc.num + value : value,
       });
     }
   };
@@ -54,13 +61,23 @@ const Calculator = () => {
     e.preventDefault();
     const value = e.target.innerHTML;
     if (value === "=") {
+      const rest = getResultFromOperation(calc.res, calc.num);
       setCalc({
         operation: "",
-        num: calc.res,
+        num: rest,
         res: 0,
+        decimal: false,
+      });
+    } else if (calc.operation) {
+      const rest = getResultFromOperation(calc.res, calc.num);
+      setCalc({
+        ...calc,
+        operation: value,
+        res: rest,
+        decimal: false,
       });
     } else {
-      setCalc({ ...calc, operation: value });
+      setCalc({ ...calc, operation: value, decimal: false });
     }
   };
 
@@ -115,7 +132,7 @@ const Calculator = () => {
               </button>
             )
           )}
-          <button onClick={handleOnClickNumber}>.</button>
+          <button onClick={handleOnClickDecimal}>.</button>
         </div>
       </div>
     </main>
