@@ -8,6 +8,7 @@ const DIVIDE_OPERATOR = "/";
 const EQUAL_OPERATOR = "=";
 const FIRST_NUMBER = "3";
 const SECOND_NUMBER = "4";
+const ZERO_NUMBER_ID = "#zero-button";
 
 describe("Calculator", () => {
   it("renders", () => {
@@ -140,11 +141,11 @@ describe("Clicking operator and number buttons", () => {
       calculator.container.querySelector("#calculator-screen");
 
     const firstNumButton = screen.getByText(FIRST_NUMBER);
-    const multiplyButton = screen.getByText(DIVIDE_OPERATOR);
+    const divideButton = screen.getByText(DIVIDE_OPERATOR);
     const equalButton = screen.getByText(EQUAL_OPERATOR);
 
     fireEvent.click(firstNumButton);
-    fireEvent.click(multiplyButton);
+    fireEvent.click(divideButton);
     fireEvent.click(firstNumButton);
 
     fireEvent.click(equalButton);
@@ -152,5 +153,23 @@ describe("Clicking operator and number buttons", () => {
     expect(calculatorScreen.innerHTML).toBe(
       `${Number(FIRST_NUMBER) / Number(FIRST_NUMBER)}`
     );
+  });
+  it("When dividing by zero and clicking equal button, it should return an error", () => {
+    const calculator = render(<Calculator />);
+    const calculatorScreen =
+      calculator.container.querySelector("#calculator-screen");
+
+    const firstNumButton = screen.getByText(FIRST_NUMBER);
+    const secondNumButton = calculator.container.querySelector(ZERO_NUMBER_ID);
+    const divideButton = screen.getByText(DIVIDE_OPERATOR);
+    const equalButton = screen.getByText(EQUAL_OPERATOR);
+
+    fireEvent.click(firstNumButton);
+    fireEvent.click(divideButton);
+    fireEvent.click(secondNumButton);
+
+    fireEvent.click(equalButton);
+
+    expect(calculatorScreen.innerHTML).toBe("Err");
   });
 });
