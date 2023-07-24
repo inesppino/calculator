@@ -13,3 +13,29 @@ This calculator has been built through TDD.
 ## Vite:
 
 As CRA is no longer been updated, it has been decided to use vite + react template in order to create the app. We have used css to keep the application as simple as possible.
+
+## Set-up:
+
+### Clone this repository
+
+$ git clone https://github.com/inesppino/calculator
+
+### Node version
+
+In order to run the app, please be aware that node `version 16+` is required. If you have nvm in your terminal, use
+
+$ nvm use
+
+and follow the instructions.
+
+### Install dependencies
+
+$ yarn install
+
+### Run dev
+
+$ yarn dev
+
+### Run tests
+
+$ yarn run test
