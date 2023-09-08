@@ -186,7 +186,11 @@ const Calculator = () => {
   return (
     <main>
       <div className="calculator-container">
-        <div className="calculator-screen" id="calculator-screen">
+        <div
+          className="calculator-screen"
+          id="calculator-screen"
+          data-testid="calculator-result"
+        >
           {calc.num ? calc.num : calc.res}
         </div>
         <div className="calculator-upper-buttons">
@@ -220,6 +224,7 @@ const Calculator = () => {
           {CALCULATOR_NUMBERS.map((num) => (
             <button
               id={num === "0" ? "zero-button" : null}
+              data-testid={num === "0" ? "zero-button" : null}
               onClick={handleOnClickNumber}
               key={num}
             >
